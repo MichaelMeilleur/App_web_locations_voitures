@@ -1,0 +1,64 @@
+﻿@model IEnumerable<TP1.WebSite.Models.Identité.Utilisateur.UtilisateurManageM>
+
+@{
+    ViewData["Title"] = "Manage";
+}
+
+<h1>Gérer les utilisateurs<br></h1>
+
+<div class="mt-2 mb-2">
+    @Html.ActionLink("Créer un nouvel utilisateur", "Register", "Account",
+    new {}, new { @class = "btn btn-primary" })
+</div>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.ID)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.NomUtilisateur)
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ID)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.NomUtilisateur)
+                </td>
+                <td>
+                    <form asp-action="ResetPassword" asp-route-id="@item.ID" class="d-inline-block">
+                        <input type="submit" class="btn btn-secondary" value="Réinitialiser le mot de passe" />
+                    </form>
+                    <form asp-action="Remove" asp-route-id="@item.ID" class="d-inline-block">
+                        <button type="button" class="btn btn-danger delete-button" data-name="@item.NomUtilisateur">
+                            Supprimer
+                        </button>
+                    </form>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@section Scripts {
+<script>
+    $(function() {
+        $('.delete-button').click(function() {
+            const name = $(this).data('name') || "this item";
+
+            const message = `Voulez-vous vraiment supprimer ${name}?`;
+
+            if(confirm(message)) {
+                $(this).parent("form").submit();
+            }
+        });
+    });
+</script>
+}

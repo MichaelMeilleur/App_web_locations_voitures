@@ -1,0 +1,49 @@
+﻿@model IEnumerable<TP1.WebSite.Models.Locations.Conducteurs.ConducteurViewM>
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Liste des conducteurs</h1>
+<div class="row">
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Prenom</th>
+                <th>Nom</th>
+                <th>Adresse</th>
+                <th>Courriel</th>
+                <th>Telephone</th>
+                <th>Permis de conduire</th>
+                <th>NbLocations</th>
+                <th>DerniereLocation</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var conducteur in Model)
+            {
+                <tr>
+                    <td>@conducteur.Id</td>
+                    <td>@conducteur.Prenom</td>
+                    <td>@conducteur.Nom</td>
+                    <td>@conducteur.Adresse</td>
+                    <td>@conducteur.Courriel</td>
+                    <td>@conducteur.Telephone</td>
+                    <td>@conducteur.PermisDeConduire</td>
+                    <td>@conducteur.NbLocations</td>
+                    <td>@conducteur.DerniereLocation</td>
+                    <td>
+                        @Html.ActionLink("Consulter le profil", "ConsulterProfilConducteur", new { id=conducteur.Id}, new { @class = "btn btn-primary" } )
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

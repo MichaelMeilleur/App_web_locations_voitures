@@ -1,0 +1,43 @@
+﻿@model TP1.WebSite.Models.Locations.Voiture.VoitureCreateNoteVM
+@{
+    ViewData["Title"] = "CreateNote";
+}
+
+<h1>Ajouter une note à une voiture</h1>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="CreateNote">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="NoteAjouter" class="control-label"></label>
+                <input asp-for="NoteAjouter" class="form-control" />
+                <span asp-validation-for="NoteAjouter" class="text-danger"></span>
+                <button type="submit" class="btn btn-primary ajouter">
+                    Ajouter
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+<div class="mt-2 mb-2">
+    @Html.ActionLink("Annuler", "Manage","Voiture", new {}, new { @class = "btn btn-primary" })
+</div>
+
+
+@section Scripts {
+    <script>
+        $(function () {
+            $('.ajouter').click(function () {
+                const message = `Voulez-vous ajouter une note?`;
+
+                if (confirm(message)) {
+                    $(this).parent("form").submit();
+                }
+            });
+        });
+    </script>
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

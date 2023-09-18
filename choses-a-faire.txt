@@ -1,0 +1,27 @@
+CHOSES À FAIRE:
+
+GÉNÉRAL:
+- Ajouter des try-catch;
+- Navigation;
+
+UTILISATEUR:
+- Sélectionner rôle;
+
+SUCCURSALE:
+- Pouvoir filtrer "Archivé";
+- Pour création "Activé" de base;
+- Pour création champ addresse montré dépendemment si choisis;
+
+VOITURE:
+- Pouvoir filtrer "Archivé";
+- Chercher par ID de voiture;
+- À la création, assigner à une succursale;
+- À la création, kilométrage optionel;
+- À la création, valider immatriculation;
+
+LOCATION:
+- Inclure Nom/Prénom du client pour la location;
+- Séparer en 2 listes selon le statut de location;
+
+CONDUCTEUR:
+- Ajouter date de location;

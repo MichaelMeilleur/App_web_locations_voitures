@@ -1,0 +1,54 @@
+﻿@model TP1.WebSite.Models.Locations.Succursale.VoitureEditM
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Modifier une succursale</h1>
+
+<form asp-action="Edit" asp-route-id="@ViewBag.Id">
+    <div class="row">
+        <div class="col-md-4">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Nom" class="control-label"></label>
+                <input asp-for="Nom" class="form-control" />
+                <span asp-validation-for="Nom" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Statut" class="control-label"></label>
+                <input asp-for="Statut" class="form-control" />
+                <span asp-validation-for="Statut" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="NumeroCivique_Succcursale" class="control-label"></label>
+                <input asp-for="NumeroCivique_Succcursale" class="form-control" />
+                <span asp-validation-for="NumeroCivique_Succcursale" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Rue_Succcursale" class="control-label"></label>
+                <input asp-for="Rue_Succcursale" class="form-control" />
+                <span asp-validation-for="Rue_Succcursale" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CodePostal_Succcursale" class="control-label"></label>
+                <input asp-for="CodePostal_Succcursale" class="form-control" />
+                <span asp-validation-for="CodePostal_Succcursale" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Ville_Succcursale" class="control-label"></label>
+                <input asp-for="Ville_Succcursale" class="form-control" />
+                <span asp-validation-for="Ville_Succcursale" class="text-danger"></span>
+            </div>
+            <div class="form-group mt-2 mb-2">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </div>
+    </div>
+</form>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

@@ -1,0 +1,139 @@
+﻿@model TP1.WebSite.Models.Locations.Voiture.VoitureSuccursaleVM
+
+@{
+    ViewData["Title"] = "Manage";
+}
+
+<h1>Gérer les voitures</h1>
+<div class="mt-2 mb-2">
+    @Html.ActionLink("Créer une nouvelle voiture", "Create", "Voiture",
+    new {}, new { @class = "btn btn-primary" })
+</div>
+
+@using (Html.BeginForm("Manage", "Voiture"))
+{
+    <div class="form-group">
+        @Html.LabelFor(model => model.SuccursaleId, "Succursale")
+        @Html.DropDownListFor(model => model.SuccursaleId, new SelectList(Model.Succursales, "Id", "Nom"), "Sélectionnez une succursale", new { @class = "form-control" })
+        <button type="submit" class="btn btn-primary mt-2">Rechercher</button>
+    </div>
+}
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Voitures.FirstOrDefault().Surnom)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Voitures.FirstOrDefault().NumeroImmatriculation)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Voitures.FirstOrDefault().Marque)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Voitures.FirstOrDefault().Modele)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Voitures.FirstOrDefault().Annee)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Voitures.FirstOrDefault().Couleur)
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Voitures)
+        {
+            if (item.Statutv != TP1.Core.Domain.Entities.Locations.Voiture.StatutV.Archivé)
+            {
+
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Surnom)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.NumeroImmatriculation)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Marque)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Modele)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Annee)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Couleur)
+                    </td>
+                    <td>
+                        @Html.ActionLink("Consulter le profil", "ConsulterProfil", new { id=item.Id}, new { @class = "btn btn-primary" } )
+                    </td>
+                    <td>
+                        @if (item.Statutv == TP1.Core.Domain.Entities.Locations.Voiture.StatutV.Désactivé)
+                        {
+                            <form asp-action="ActiverVoiture" asp-route-id="@item.Id" method="post">
+                                <button type="submit" class="btn btn-success activer">
+                                    Activer
+                                </button>
+                            </form>
+                        }
+                        @if (item.Statutv == TP1.Core.Domain.Entities.Locations.Voiture.StatutV.Activé)
+                        {
+                            <form asp-action="DesactiverVoiture" asp-route-id="@item.Id" method="post">
+                                <button type="submit" class="btn btn-danger desactiver">
+                                    Désactiver
+                                </button>
+                            </form>
+                        }
+                        @if (item.Statutv == TP1.Core.Domain.Entities.Locations.Voiture.StatutV.Désactivé)
+                        {
+                            <form asp-action="ArchiverVoiture" asp-route-id="@item.Id" method="post">
+                                <button type="submit" class="btn btn-warning delete-button">
+                                    Archiver
+                                </button>
+                            </form>
+                        }
+                    </td>
+                </tr>
+            }
+        }
+    </tbody>
+</table>
+
+@section Scripts {
+    <script>
+        $(function() {
+            $('.delete-button').click(function() {
+                const message = `Voulez-vous vraiment archiver cette voiture`;
+
+                if(confirm(message)) {
+                    $(this).parent("form").submit();
+                }
+            });
+        });
+    </script>
+    <script>
+        $(function () {
+            $('.desactiver').click(function () {
+                const message = `Voulez-vous vraiment desactiver cette voiture`;
+
+                if (confirm(message)) {
+                    $(this).parent("form").submit();
+                }
+            });
+        });
+    </script>
+    <script>
+        $(function () {
+            $('.activer').click(function () {
+                const message = `Voulez-vous vraiment activer cette voiture`;
+
+                if (confirm(message)) {
+                    $(this).parent("form").submit();
+                }
+            });
+        });
+    </script>
+}
+

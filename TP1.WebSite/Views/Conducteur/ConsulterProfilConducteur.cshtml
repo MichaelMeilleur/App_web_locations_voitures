@@ -1,0 +1,91 @@
+﻿@model IEnumerable<TP1.WebSite.Models.Locations.Conducteurs.ConducteurViewM>
+@{
+    ViewData["Title"] = "ConsulterProfilConducteur";
+}
+
+<h1>Profil d'un conducteur</h1>
+
+<div class="mt-2 mb-2">
+    @Html.ActionLink("Retour", "Index","Conducteur", new {}, new { @class = "btn btn-primary" })
+</div>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Nom)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Prenom)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Courriel)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PermisDeConduire)
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Nom)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Prenom)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Courriel)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PermisDeConduire)
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+<h2>Locations</h2>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.statut)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.OuverturePlanifie)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FermeturePlanifie)
+            </th>
+            <th>
+                Nom de la succursale
+            </th>
+            <th>
+                Nom de la voiture
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.statut)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.OuverturePlanifie)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FermeturePlanifie)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.NomSuccursale)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.NomVoiture)
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

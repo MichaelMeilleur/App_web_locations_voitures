@@ -1,0 +1,139 @@
+﻿@model TP1.WebSite.Models.Locations.Location.LocationCreateM
+@using TP1.Core;
+@inject SystemeReservationDbContext context
+@{
+    ViewData["Title"] = "Create";
+    Guid idselectionner = new Guid();
+
+}
+
+<h1>Créer une Locations</h1>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="SuccursaleId" class="control-label"></label>
+                <select asp-for="SuccursaleId" class="form-control" id="succursale-select">
+                    <option value="">Choisir une succursale</option>
+                    @foreach (var succursale in context.Succursales.ToList())
+                    {
+                        <option value="@succursale.Id">@succursale.Nom</option>
+                    }
+                </select>
+                <span asp-validation-for="SuccursaleId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="IdVoiture" class="control-label"></label>
+                <select asp-for="IdVoiture" class="form-control" id="voiture-select">
+                    <option value="">Choisir une voiture</option>               
+                </select>
+                <span asp-validation-for="IdVoiture" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Prenom" class="control-label"></label>
+                <input asp-for="Prenom" class="form-control" />
+                <span asp-validation-for="Prenom" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Nom" class="control-label"></label>
+                <input asp-for="Nom" class="form-control" />
+                <span asp-validation-for="Nom" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Telephone" class="control-label"></label>
+                <input asp-for="Telephone" class="form-control" />
+                <span asp-validation-for="Telephone" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Courriel" class="control-label"></label>
+                <input asp-for="Courriel" class="form-control" />
+                <span asp-validation-for="Courriel" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="NumeroCivique_Conducteur" class="control-label"></label>
+                <input asp-for="NumeroCivique_Conducteur" class="form-control" />
+                <span asp-validation-for="NumeroCivique_Conducteur" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Rue_Conducteur" class="control-label"></label>
+                <input asp-for="Rue_Conducteur" class="form-control" />
+                <span asp-validation-for="Rue_Conducteur" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CodePostal_Conducteur" class="control-label"></label>
+                <input asp-for="CodePostal_Conducteur" class="form-control" />
+                <span asp-validation-for="CodePostal_Conducteur" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Ville_Conducteur" class="control-label"></label>
+                <input asp-for="Ville_Conducteur" class="form-control" />
+                <span asp-validation-for="Ville_Conducteur" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label class="form-check-label form-check m-2">
+                    <input class="form-check-input" asp-for="Valide" /> @Html.DisplayNameFor(model => model.Valide)
+                </label>
+                <span asp-validation-for="Valide" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="OuverturePlanifie" class="control-label"></label>
+                <input asp-for="OuverturePlanifie" class="form-control" />
+                <span asp-validation-for="OuverturePlanifie" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="FermeturePlanifie" class="control-label"></label>
+                <input asp-for="FermeturePlanifie" class="form-control" />
+                <span asp-validation-for="FermeturePlanifie" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PermisDeConduire" class="control-label"></label>
+                <input asp-for="PermisDeConduire" class="form-control" />
+                <span asp-validation-for="PermisDeConduire" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Note" class="control-label"></label>
+                <input asp-for="Note" class="form-control" />
+                <span asp-validation-for="Note" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Créer une location" class="btn btn-primary" />
+            </div>
+            <div class="mt-2 mb-2">
+                @Html.ActionLink("Annuler", "Manage","Location", new {}, new { @class = "btn btn-primary" })
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            var succursaleSelect = $('#succursale-select');
+            var voitureSelect = $('#voiture-select');
+
+            succursaleSelect.change(function () {
+                var selectedSuccursaleId = $(this).val();
+
+                voitureSelect.empty();
+                voitureSelect.append('<option value="">Choisir une voiture</option>');
+
+                $.ajax({
+                    url: '@Url.Action("GetCarsBySuccursaleId", "Location")',
+                    type: 'GET',
+                    dataType: 'json',
+                    data: { succursaleId: selectedSuccursaleId },
+                    success: function (result) {
+                        $.each(result, function (i, voiture) {
+                            voitureSelect.append('<option value="' + voiture.id + '">' + voiture.surnom + '</option>');
+                        });
+                    },
+                    error: function (xhr, status, error) {
+                        console.error(error);
+                    }
+                });
+            });
+        });
+    </script>
+}

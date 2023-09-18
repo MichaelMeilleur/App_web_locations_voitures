@@ -1,0 +1,96 @@
+﻿@model TP1.WebSite.Models.Locations.Voiture.VoitureSuccursaleVM
+
+@{
+    ViewData["Title"] = "Manage";
+    int NbVoitureNArchive = 0;
+    int NbVoitureActive = 0;
+    int NbVoitureDispo = 0;
+}
+
+<h1>Gérer les succursales</h1>
+
+<div class="mt-2 mb-2">
+    @Html.ActionLink("Créer une nouvelle succursale", "Create", "Succursale",
+    new {}, new { @class = "btn btn-primary" })
+</div>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Succursales.FirstOrDefault().Nom)
+            </th>
+            <th>
+                Voitures non-archivées
+            </th>
+            <th>
+                Voitures activées
+            </th>
+            <th>
+                Voitures disponibles
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Succursales.FirstOrDefault().Statut)
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Succursales)
+        {
+            NbVoitureActive = 0;
+            NbVoitureDispo = 0;
+            NbVoitureNArchive = 0;
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Nom)
+                </td>
+                <td>
+                    @foreach (var voiture in Model.Voitures.Where(v => v.Statutv != TP1.Core.Domain.Entities.Locations.Voiture.StatutV.Archivé && v.SuccursaleId == item.Id))
+                    {
+                        NbVoitureNArchive++;
+                    }
+                    @NbVoitureNArchive
+                </td>
+                <td>
+                    @foreach (var voiture in Model.Voitures.Where(v => v.Statutv == TP1.Core.Domain.Entities.Locations.Voiture.StatutV.Activé && v.SuccursaleId == item.Id))
+                    {
+                        NbVoitureActive++;
+                    }
+                    @NbVoitureActive
+                </td>
+                <td>
+                    @foreach (var voiture in Model.Voitures.Where(v => v.Disponible == true && v.SuccursaleId == item.Id))
+                    {
+                        NbVoitureDispo++;
+                    }
+                    @NbVoitureDispo
+                </td>
+                <td>
+                    @if (item.Statut)
+                    {
+                        <span>Activé</span>
+                    }
+                    else
+                    {
+                        <span>Désactivé</span>
+                    }
+                </td>
+                <td>
+                    <form asp-action="UpdateStatus" asp-route-id="@item.Id" method="post">
+                        @if (item.Statut)
+                        {
+                            <button type="submit" class="btn btn-danger">
+                                Désactivé
+                            </button>
+                        }
+                        else
+                        {
+                            <button type="submit" class="btn btn-success">
+                                Activé
+                            </button>
+                        }
+                    </form>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

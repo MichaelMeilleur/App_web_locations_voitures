@@ -1,0 +1,145 @@
+﻿@model IEnumerable<TP1.WebSite.Models.Locations.Voiture.VoitureDetailM>
+@{
+    ViewData["Title"] = "Manage";
+}
+
+<h1>Profil d'une voiture</h1>
+
+<div class="mt-2 mb-2">
+    @Html.ActionLink("Retour", "Manage","Voiture", new {}, new { @class = "btn btn-primary" })
+</div>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Id)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.SuccursaleId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Surnom)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.NumeroImmatriculation)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.NumeroSerie)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Marque)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Modele)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Annee)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Couleur)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Kilometrage)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Etat)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Statutv)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ValeurEstimee)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Disponible)
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Id)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.SuccursaleId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Surnom)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.NumeroImmatriculation)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.NumeroSerie)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Marque)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Modele)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Annee)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Couleur)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Kilometrage)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Etat)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Statutv)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ValeurEstimee)
+                </td>
+                <td>
+                    @if (item.Disponible)
+                    {
+                        <span>Oui</span>
+                    }
+                    else
+                    {
+                        <span>Non</span>
+                    }
+                </td>
+                <td>
+                    @Html.ActionLink("Ajouter une note", "CreateNote", "Voiture", new { id=item.Id}, new { @class = "btn btn-primary" } )
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+<thead>
+    <tr>
+        <th>
+            Notes
+        </th>
+    </tr>
+</thead>
+<tbody>
+    @foreach (var item in Model)
+    {
+        @foreach (var item2 in Model)
+        {
+            <tr>
+                <td>
+                    <ul>
+                        @if (item2.liste != null)
+                        {
+                            @foreach (var note in item2.liste.Where(n => n.VoitureId == item.Id))
+                            {
+                                <li>@note.Texte</li>
+                            }
+                        }
+                    </ul>
+                </td>
+            </tr>
+        }
+    }
+</tbody>

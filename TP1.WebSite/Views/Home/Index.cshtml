@@ -1,0 +1,23 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+<style>
+    .container {
+        margin-top: 100px;
+        text-align: center;
+    }
+
+    form {
+        display: inline-block;
+        margin: auto;
+        width: auto;
+    }
+</style>
+<div class="text-center" s>
+    <h1>Get Gud Car Location LLC.</h1>
+    <h1 class="display-4" style="color: blue">Système de location GETGUD INC.</h1>
+    <div class="mt-2 mb-2">
+        @Html.ActionLink("Se connecter", "LogIn","Account", new {}, new { @class = "btn btn-primary" })
+    </div>
+</div>

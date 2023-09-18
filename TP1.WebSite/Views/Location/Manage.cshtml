@@ -1,0 +1,92 @@
+﻿@model TP1.WebSite.Models.Locations.Location.LocationSuccursaleVM
+
+@{
+    ViewData["Title"] = "Manage";
+}
+<h1>Gérer les Locations</h1>
+<div class="mt-2 mb-2">
+    @Html.ActionLink("Créer une nouvelle Location", "Create", "Location",
+    new {}, new { @class = "btn btn-primary" })
+</div>
+
+@using (Html.BeginForm("Manage", "Location"))
+{
+    <div class="form-group">
+        @Html.LabelFor(model => model.SuccursaleId, "Succursale")
+        @Html.DropDownListFor(model => model.SuccursaleId, new SelectList(Model.Succursales, "Id", "Nom"), "Sélectionnez une succursale", new { @class = "form-control" })
+        <button type="submit" class="btn btn-primary mt-2">Rechercher</button>
+    </div>
+}
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Locations.FirstOrDefault().Nom)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Locations.FirstOrDefault().Prenom)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Locations.FirstOrDefault().Rue_Conducteur)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Locations.FirstOrDefault().CodePostal_Conducteur)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Locations.FirstOrDefault().NumeroCivique_Conducteur)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Locations.FirstOrDefault().Ville_Conducteur)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Locations.FirstOrDefault().IdVoiture)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Locations.FirstOrDefault().OuverturePlanifie)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Locations.FirstOrDefault().FermeturePlanifie)
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Locations)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Nom)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Prenom)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Rue_Conducteur)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CodePostal_Conducteur)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.NumeroCivique_Conducteur)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Ville_Conducteur)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.NomVoiture)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.OuverturePlanifie)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FermeturePlanifie)
+                </td>
+                <td>
+                    @Html.ActionLink("Voir les détails", "ConsulterLocation", new { id=item.ID}, new { @class = "btn btn-primary" } )
+                </td>
+                <td>
+                    @Html.ActionLink("Fermer la location", "FermerLocation", new { id=item.ID}, new { @class = "btn btn-danger" } )
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

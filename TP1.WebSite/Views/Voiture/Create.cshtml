@@ -1,0 +1,117 @@
+﻿@model TP1.WebSite.Models.Locations.Voiture.VoitureCreateM
+@using TP1.Core;
+@inject SystemeReservationDbContext context
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Créer une voiture</h1>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Annee" class="control-label"></label>
+                <input asp-for="Annee" class="form-control" />
+                <span asp-validation-for="Annee" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="SuccursaleID" class="control-label"></label>
+                <select asp-for="SuccursaleID" class="form-control">
+                    <option value="">Choisir une succursale</option>
+                    @foreach (var succursale in context.Succursales.Where(x => x.Statut == true).ToList())
+                    {
+                        <option value="@succursale.Id">@succursale.Nom</option>
+                    }
+                </select>
+                <span asp-validation-for="SuccursaleID" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Couleur" class="control-label"></label>
+                <input asp-for="Couleur" class="form-control" />
+                <span asp-validation-for="Couleur" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Disponible" class="control-label"></label>
+                <div class="form-check">
+                    <input asp-for="Disponible" class="form-check-input" type="checkbox" />
+                    <label class="form-check-label" asp-for="Disponible">Disponible</label>
+                </div>
+                <span asp-validation-for="Disponible" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Etat" class="control-label"></label>
+                <select asp-for="Etat" class="form-control">
+                    <option value="">Choisir un etat</option>
+                    <option value="Neuf">Neuf</option>
+                    <option value="Usagé">Usagé</option>
+                </select>
+                <span asp-validation-for="Etat" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Kilometrage" class="control-label"></label>
+                <input asp-for="Kilometrage" class="form-control" />
+                <span asp-validation-for="Kilometrage" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Marque" class="control-label"></label>
+                <input asp-for="Marque" class="form-control" />
+                <span asp-validation-for="Marque" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Modele" class="control-label"></label>
+                <input asp-for="Modele" class="form-control" />
+                <span asp-validation-for="Modele" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="NumeroImmatriculation" class="control-label"></label>
+                <input asp-for="NumeroImmatriculation" class="form-control" />
+                <span asp-validation-for="NumeroImmatriculation" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="NumeroSerie" class="control-label"></label>
+                <input asp-for="NumeroSerie" class="form-control" />
+                <span asp-validation-for="NumeroSerie" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Statutv" class="control-label"></label>
+                <select asp-for="Statutv" class="form-control">
+                    <option value="">Choisir un statut</option>
+                    <option value="Activé">Activé</option>
+                    <option value="Désactivé">Désactivé</option>
+                    <option value="Archivé">Archivé</option>
+                </select>
+                <span asp-validation-for="Statutv" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Surnom" class="control-label"></label>
+                <input asp-for="Surnom" class="form-control" />
+                <span asp-validation-for="Surnom" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ValeurEstimee" class="control-label"></label>
+                <input asp-for="ValeurEstimee" class="form-control" />
+                <span asp-validation-for="ValeurEstimee" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Note" class="control-label"></label>
+                <input asp-for="Note" class="form-control" />
+                <span asp-validation-for="Note" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Créer" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class="mt-2 mb-2">
+    @Html.ActionLink("Annuler", "Manage","Voiture", new {}, new { @class = "btn btn-primary" })
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

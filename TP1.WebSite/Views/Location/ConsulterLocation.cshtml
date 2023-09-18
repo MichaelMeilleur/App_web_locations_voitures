@@ -1,0 +1,91 @@
+﻿@model IEnumerable<TP1.WebSite.Models.Locations.Location.LocationDetailM>
+@{
+    ViewData["Title"] = "Manage";
+}
+
+<h1>Détails de la location</h1>
+
+<div class="mt-2 mb-2">
+    @Html.ActionLink("Retour", "Manage", "Location", new { }, new { @class = "btn btn-primary" })
+</div>
+
+@foreach (var item in Model)
+{
+    <div>
+        <strong>@Html.DisplayNameFor(model => model.ID):</strong> @Html.DisplayFor(modelItem => item.ID)
+    </div>
+    <div>
+        <strong>@Html.DisplayNameFor(model => model.OuverturePlanifie):</strong> @Html.DisplayFor(modelItem => item.OuverturePlanifie)
+    </div>
+    <div>
+        <strong>@Html.DisplayNameFor(model => model.FermeturePlanifie):</strong> @Html.DisplayFor(modelItem => item.FermeturePlanifie)
+    </div>
+    <div>
+        <strong>@Html.DisplayNameFor(model => model.OuvertureReel):</strong> @Html.DisplayFor(modelItem => item.OuvertureReel)
+    </div>
+    <div>
+        <strong>@Html.DisplayNameFor(model => model.FermetureReel):</strong> @Html.DisplayFor(modelItem => item.FermetureReel)
+    </div>
+    <div>
+        <strong>@Html.DisplayNameFor(model => model.SuccursaleId):</strong> @Html.DisplayFor(modelItem => item.SuccursaleId)
+    </div>
+    <div>
+        <strong>@Html.DisplayNameFor(model => model.Statut):</strong> @Html.DisplayFor(modelItem => item.Statut)
+    </div>
+    <div>
+        <strong>Prénom du conducteur : </strong> @Html.DisplayFor(modelItem => item.Prenom)
+    </div>
+    <div>
+        <strong>Nom du conducteur : </strong> @Html.DisplayFor(modelItem => item.Nom)
+    </div>
+    <div>
+        <strong>@Html.DisplayNameFor(model => model.NumeroCivique_Conducteur):</strong> @Html.DisplayFor(modelItem => item.NumeroCivique_Conducteur)
+    </div>
+    <div>
+        <strong>@Html.DisplayNameFor(model => model.Rue_Conducteur):</strong> @Html.DisplayFor(modelItem => item.Rue_Conducteur)
+    </div>
+    <div>
+        <strong>@Html.DisplayNameFor(model => model.Ville_Conducteur):</strong> @Html.DisplayFor(modelItem => item.Ville_Conducteur)
+    </div>
+    <div>
+        <strong>@Html.DisplayNameFor(model => model.CodePostal_Conducteur):</strong> @Html.DisplayFor(modelItem => item.CodePostal_Conducteur)
+    </div>
+    <div>
+        <strong>@Html.DisplayNameFor(model => model.Courriel):</strong> @Html.DisplayFor(modelItem => item.Courriel)
+    </div>
+    <div>
+        <strong>@Html.DisplayNameFor(model => model.Telephone):</strong> @Html.DisplayFor(modelItem => item.Telephone)
+    </div>
+    <div>
+        <strong>@Html.DisplayNameFor(model => model.PermisDeConduire):</strong> @Html.DisplayFor(modelItem => item.PermisDeConduire)
+    </div>
+    <div>
+        <strong>ID de la voiture : </strong> @Html.DisplayFor(modelItem => item.IdVoiture)
+    </div>
+    <div>
+        <strong>Nom de la voiture : </strong>@Html.DisplayFor(modelItem => item.NomVoiture)
+    </div>
+    @Html.ActionLink("Ajouter une note", "CreateNoteLocation", "Location", new { id=item.ID}, new { @class = "btn btn-primary" } )
+}
+<h3>Notes</h3>
+<tbody>
+    @foreach (var item in Model)
+    {
+        @foreach (var item2 in Model)
+        {
+            <tr>
+                <td>
+                    <ul>
+                        @if (item2.liste != null)
+                        {
+                            @foreach (var note in item2.liste.Where(n => n.LocationId == item.ID))
+                            {
+                                <li>@note.Texte</li>
+                            }
+                        }
+                    </ul>
+                </td>
+            </tr>
+        }
+    }
+</tbody>
